@@ -96,9 +96,6 @@ userSchema.statics = {
     if (!passwordOK)
       throw new APIError(`Password mismatch`, httpStatus.UNAUTHORIZED);
 
-    if (!user.active)
-      throw new APIError(`User not activated`, httpStatus.UNAUTHORIZED);
-
     return user;
   }
 };
