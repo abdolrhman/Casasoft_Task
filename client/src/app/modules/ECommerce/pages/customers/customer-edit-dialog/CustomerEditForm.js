@@ -9,8 +9,9 @@ import * as Yup from "yup";
 import {
   Input,
   Select,
-  DatePickerField,
+  DatePickerField
 } from "../../../../../../_metronic/_partials/controls";
+import BackGround from "./100_1.jpg";
 
 // Validation schema
 const CustomerEditSchema = Yup.object().shape({
@@ -29,26 +30,26 @@ const CustomerEditSchema = Yup.object().shape({
   dateOfBbirth: Yup.mixed()
     .nullable(false)
     .required("Date of Birth is required"),
-  ipAddress: Yup.string().required("IP Address is required"),
+  ipAddress: Yup.string().required("IP Address is required")
 });
 
 export function CustomerEditForm({
   saveCustomer,
   customer,
   actionsLoading,
-  onHide,
+  onHide
 }) {
   return (
     <>
       <Formik
         enableReinitialize={true}
-        initialValues={customer}
-        validationSchema={CustomerEditSchema}
-        onSubmit={(values) => {
+        initialValues={{ title: "hello" }}
+        // validationSchema={CustomerEditSchema}
+        onSubmit={values => {
           saveCustomer(values);
         }}
       >
-        {({ handleSubmit }) => (
+        {({ handleSubmit, setFieldValue }) => (
           <>
             <Modal.Body className="overlay overlay-block cursor-default">
               {actionsLoading && (
@@ -61,74 +62,31 @@ export function CustomerEditForm({
                   {/* First Name */}
                   <div className="col-lg-4">
                     <Field
-                      name="firstName"
+                      name="title"
                       component={Input}
-                      placeholder="First Name"
-                      label="First Name"
+                      placeholder="Title"
+                      label="Title"
                     />
                   </div>
-                  {/* Last Name */}
-                  <div className="col-lg-4">
-                    <Field
-                      name="lastName"
-                      component={Input}
-                      placeholder="Last Name"
-                      label="Last Name"
+                  <div
+                    className="image-input image-input-outline"
+                    id="kt_image_1"
+                  >
+                    <div
+                      className="image-input-wrapper"
+                      style={{ backgroundImage: "url(" + BackGround + ")" }}
                     />
-                  </div>
-                  {/* Login */}
-                  <div className="col-lg-4">
-                    <Field
-                      name="userName"
-                      component={Input}
-                      placeholder="Login"
-                      label="Login"
+
+                    <input
+                      onChange={event => {
+                        event.persist();
+                        setFieldValue("image", event.target.files[0]);
+                      }}
+                      type="file"
+                      name="image"
+                      accept=".png, .jpg, .jpeg"
                     />
-                  </div>
-                </div>
-                {/* Email */}
-                <div className="form-group row">
-                  <div className="col-lg-4">
-                    <Field
-                      type="email"
-                      name="email"
-                      component={Input}
-                      placeholder="Email"
-                      label="Email"
-                    />
-                  </div>
-                  {/* Date of birth */}
-                  <div className="col-lg-4">
-                    <DatePickerField
-                      name="dateOfBbirth"
-                      label="Date of Birth"
-                    />
-                  </div>
-                  {/* IP Address */}
-                  <div className="col-lg-4">
-                    <Field
-                      name="ipAddress"
-                      component={Input}
-                      placeholder="IP Address"
-                      label="IP Address"
-                      customFeedbackLabel="We'll never share customer IP Address with anyone else"
-                    />
-                  </div>
-                </div>
-                <div className="form-group row">
-                  {/* Gender */}
-                  <div className="col-lg-4">
-                    <Select name="Gender" label="Gender">
-                      <option value="Female">Female</option>
-                      <option value="Male">Male</option>
-                    </Select>
-                  </div>
-                  {/* Type */}
-                  <div className="col-lg-4">
-                    <Select name="type" label="Type">
-                      <option value="0">Business</option>
-                      <option value="1">Individual</option>
-                    </Select>
+                    <input type="hidden" name="profile_avatar_remove" />
                   </div>
                 </div>
               </Form>

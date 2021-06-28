@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import { Modal } from "react-bootstrap";
-import {ModalProgressBar} from "../../../../../../_metronic/_partials/controls";
+import { ModalProgressBar } from "../../../../../../_metronic/_partials/controls";
 
 export function CustomerEditDialogHeader({ id }) {
   // Customers Redux state
   const { customerForEdit, actionsLoading } = useSelector(
-    (state) => ({
+    state => ({
       customerForEdit: state.customers.customerForEdit,
-      actionsLoading: state.customers.actionsLoading,
+      actionsLoading: state.customers.actionsLoading
     }),
     shallowEqual
   );
@@ -16,7 +16,7 @@ export function CustomerEditDialogHeader({ id }) {
   const [title, setTitle] = useState("");
   // Title couting
   useEffect(() => {
-    let _title = id ? "" : "New Customer";
+    let _title = id ? "" : "New Ingredient";
     if (customerForEdit && id) {
       _title = `Edit customer '${customerForEdit.firstName} ${customerForEdit.lastName}'`;
     }

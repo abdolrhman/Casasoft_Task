@@ -1,6 +1,7 @@
 import axios from "axios";
+import userTableMock from "../__mocks__/userTableMock";
 
-export const LOGIN_URL = "api/auth/login";
+export const LOGIN_URL = "http://localhost:4000/api/auth/login";
 export const REGISTER_URL = "api/auth/register";
 export const REQUEST_PASSWORD_URL = "api/auth/forgot-password";
 
@@ -20,5 +21,5 @@ export function requestPassword(email) {
 
 export function getUserByToken() {
   // Authorization head should be fulfilled in interceptor.
-  return axios.get(ME_URL);
+  return { data: userTableMock[0] };
 }

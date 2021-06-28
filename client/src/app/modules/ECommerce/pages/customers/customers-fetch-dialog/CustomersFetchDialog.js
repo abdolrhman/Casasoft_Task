@@ -3,14 +3,17 @@ import { Modal } from "react-bootstrap";
 import { shallowEqual, useSelector } from "react-redux";
 import {
   CustomerStatusCssClasses,
-  CustomerStatusTitles,
+  CustomerStatusTitles
 } from "../CustomersUIHelpers";
 import { useCustomersUIContext } from "../CustomersUIContext";
 
 const selectedCustomers = (entities, ids) => {
+  console.log("eeewww", entities, ids);
+  console.log("qqqq", ids);
   const _customers = [];
-  ids.forEach((id) => {
-    const customer = entities.find((el) => el.id === id);
+  ids.forEach(id => {
+    const customer = entities.find(el => el._id === id);
+    console.log("cuu", customer);
     if (customer) {
       _customers.push(customer);
     }
@@ -23,21 +26,21 @@ export function CustomersFetchDialog({ show, onHide }) {
   const customersUIContext = useCustomersUIContext();
   const customersUIProps = useMemo(() => {
     return {
-      ids: customersUIContext.ids,
+      ids: customersUIContext.ids
     };
   }, [customersUIContext]);
 
   // Customers Redux state
   const { customers } = useSelector(
-    (state) => ({
+    state => ({
       customers: selectedCustomers(
         state.customers.entities,
         customersUIProps.ids
-      ),
+      )
     }),
     shallowEqual
   );
-
+  console.log("customerss", customers);
   // if customers weren't selected we should close modal
   useEffect(() => {
     if (!customersUIProps.ids || customersUIProps.ids.length === 0) {
@@ -45,7 +48,7 @@ export function CustomersFetchDialog({ show, onHide }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customersUIProps.ids]);
-
+  console.log("customrs", customers);
   return (
     <Modal
       show={show}
@@ -67,9 +70,10 @@ export function CustomersFetchDialog({ show, onHide }) {
             </tr>
           </thead>
           <tbody>
-            {customers.map((customer) => (
+            {customers.map(customer => (
               <tr key={`id${customer.id}`}>
                 <td>{customer.id}</td>
+                <td>{console.log("cu", customer)}</td>
                 <td>
                   <span
                     className={`label label-lg label-light-${

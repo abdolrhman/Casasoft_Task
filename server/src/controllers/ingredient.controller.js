@@ -17,3 +17,13 @@ exports.create = async (req, res, next) => {
     return next(error);
   }
 };
+
+exports.list = async (req, res, next) => {
+  try {
+    const ingredients = await Ingredient.find();
+    console.log('ing', ingredients);
+    res.send({ entities: ingredients });
+  } catch (error) {
+    return next(error);
+  }
+};

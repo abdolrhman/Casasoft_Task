@@ -3,3 +3,11 @@ node_modules/
 .idea
 .env
 .env-example
+# exclude everything
+
+uploads/*
+
+# exception to the rule
+
+!uploads/.gitkeep
+

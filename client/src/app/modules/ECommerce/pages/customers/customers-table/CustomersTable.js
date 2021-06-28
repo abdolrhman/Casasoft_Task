@@ -4,7 +4,7 @@
 import React, { useEffect, useMemo } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory, {
-  PaginationProvider,
+  PaginationProvider
 } from "react-bootstrap-table2-paginator";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import * as actions from "../../../_redux/customers/customersActions";
@@ -14,7 +14,7 @@ import {
   NoRecordsFoundMessage,
   PleaseWaitMessage,
   sortCaret,
-  headerSortingClasses,
+  headerSortingClasses
 } from "../../../../../../_metronic/_helpers";
 import * as uiHelpers from "../CustomersUIHelpers";
 import * as columnFormatters from "./column-formatters";
@@ -25,19 +25,20 @@ export function CustomersTable() {
   // Customers UI Context
   const customersUIContext = useCustomersUIContext();
   const customersUIProps = useMemo(() => {
+    console.log("lll", customersUIContext);
     return {
       ids: customersUIContext.ids,
       setIds: customersUIContext.setIds,
       queryParams: customersUIContext.queryParams,
       setQueryParams: customersUIContext.setQueryParams,
       openEditCustomerDialog: customersUIContext.openEditCustomerDialog,
-      openDeleteCustomerDialog: customersUIContext.openDeleteCustomerDialog,
+      openDeleteCustomerDialog: customersUIContext.openDeleteCustomerDialog
     };
   }, [customersUIContext]);
 
   // Getting curret state of customers list from store (Redux)
   const { currentState } = useSelector(
-    (state) => ({ currentState: state.customers }),
+    state => ({ currentState: state.customers }),
     shallowEqual
   );
   const { totalCount, entities, listLoading } = currentState;
@@ -58,49 +59,21 @@ export function CustomersTable() {
       text: "ID",
       sort: true,
       sortCaret: sortCaret,
-      headerSortingClasses,
+      headerSortingClasses
     },
     {
-      dataField: "firstName",
-      text: "Firstname",
+      dataField: "title",
+      text: "Title",
       sort: true,
       sortCaret: sortCaret,
-      headerSortingClasses,
+      headerSortingClasses
     },
     {
-      dataField: "lastName",
-      text: "Lastname",
+      dataField: "image",
+      text: "Image",
       sort: true,
       sortCaret: sortCaret,
-      headerSortingClasses,
-    },
-    {
-      dataField: "email",
-      text: "Email",
-      sort: true,
-      sortCaret: sortCaret,
-      headerSortingClasses,
-    },
-    {
-      dataField: "gender",
-      text: "Gender",
-      sort: false,
-      sortCaret: sortCaret,
-    },
-    {
-      dataField: "status",
-      text: "Status",
-      sort: true,
-      sortCaret: sortCaret,
-      formatter: columnFormatters.StatusColumnFormatter,
-      headerSortingClasses,
-    },
-    {
-      dataField: "type",
-      text: "Type",
-      sort: true,
-      sortCaret: sortCaret,
-      formatter: columnFormatters.TypeColumnFormatter,
+      formatter: columnFormatters.TypeColumnFormatter
     },
     {
       dataField: "action",
@@ -108,14 +81,14 @@ export function CustomersTable() {
       formatter: columnFormatters.ActionsColumnFormatter,
       formatExtraData: {
         openEditCustomerDialog: customersUIProps.openEditCustomerDialog,
-        openDeleteCustomerDialog: customersUIProps.openDeleteCustomerDialog,
+        openDeleteCustomerDialog: customersUIProps.openDeleteCustomerDialog
       },
       classes: "text-right pr-0",
       headerClasses: "text-right pr-3",
       style: {
-        minWidth: "100px",
-      },
-    },
+        minWidth: "100px"
+      }
+    }
   ];
   // Table pagination properties
   const paginationOptions = {
@@ -123,7 +96,7 @@ export function CustomersTable() {
     totalSize: totalCount,
     sizePerPageList: uiHelpers.sizePerPageList,
     sizePerPage: customersUIProps.queryParams.pageSize,
-    page: customersUIProps.queryParams.pageNumber,
+    page: customersUIProps.queryParams.pageNumber
   };
   return (
     <>
@@ -150,7 +123,7 @@ export function CustomersTable() {
                 selectRow={getSelectRow({
                   entities,
                   ids: customersUIProps.ids,
-                  setIds: customersUIProps.setIds,
+                  setIds: customersUIProps.setIds
                 })}
                 {...paginationTableProps}
               >

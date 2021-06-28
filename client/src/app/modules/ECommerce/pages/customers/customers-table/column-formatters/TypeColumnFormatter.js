@@ -3,21 +3,21 @@
 import React from "react";
 import {
   CustomerTypeCssClasses,
-  CustomerTypeTitles,
+  CustomerTypeTitles
 } from "../../CustomersUIHelpers";
+import { Avatar, Grid } from "@material-ui/core";
 
 export function TypeColumnFormatter(cellContent, row) {
+  console.log("rr", row.image);
   return (
     <>
-      <span
-        className={`label label-dot label-${
-          CustomerTypeCssClasses[row.type]
-        } mr-2`}
-      ></span>
-      &nbsp;
-      <span className={`font-bold font-${CustomerTypeCssClasses[row.type]}`}>
-        {CustomerTypeTitles[row.type]}
-      </span>
+      <Grid container justify="center" alignItems="center">
+        <Avatar
+          alt="Remy Sharp"
+          src={`http://localhost:4000/${row.image}`}
+          // className={classes1.avatar}
+        />
+      </Grid>
     </>
   );
 }

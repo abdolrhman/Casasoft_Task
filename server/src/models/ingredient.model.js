@@ -18,6 +18,16 @@ const ingredientSchema = new Schema(
   }
 );
 
+// Duplicate the ID field.
+ingredientSchema.virtual('id').get(function() {
+  return this._id.toHexString();
+});
+
+// Ensure virtual fields are serialised.
+ingredientSchema.set('toJSON', {
+  virtuals: true
+});
+
 ingredientSchema.method({
   transform() {
     const transformed = {};
