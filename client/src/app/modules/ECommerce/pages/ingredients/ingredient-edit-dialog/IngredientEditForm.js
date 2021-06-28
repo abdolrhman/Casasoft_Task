@@ -2,7 +2,7 @@
 // Data validation is based on Yup
 // Please, be familiar with article first:
 // https://hackernoon.com/react-form-validation-with-formik-and-yup-8b76bda62e10
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
@@ -12,6 +12,8 @@ import {
   DatePickerField
 } from "../../../../../../_metronic/_partials/controls";
 import BackGround from "./100_1.jpg";
+import axios from "axios";
+import { TextField } from "@material-ui/core";
 
 // Validation schema
 const CustomerEditSchema = Yup.object().shape({
@@ -33,18 +35,52 @@ const CustomerEditSchema = Yup.object().shape({
   ipAddress: Yup.string().required("IP Address is required")
 });
 
-export function CustomerEditForm({
+const ingredientAPI = process.env.ingerdientAPI;
+const apiKey = process.env.apiKey;
+
+export function IngredientEditForm({
   saveCustomer,
-  customer,
+  ingredient,
   actionsLoading,
   onHide
 }) {
+  const [query, setQuery] = useState([]);
+  const [info, setInfo] = useState({});
+  const [fat, setFat] = useState(0);
+  const [calo, setCal] = useState(0);
+  const [carb, setCarb] = useState(0);
+  // const [ingredientApi, setIngredientApi] = useState([]);
+  useEffect(() => {
+    (async () => {
+      const results = await axios.get(
+        `${ingredientAPI}search?query=lemon&apiKey=${apiKey}`
+      );
+      //https://api.spoonacular.com/food/ingredients/99184/information?apiKey=3d01ebdfea1b4a4ca4dbf3aed3152c6c&amount=100&unit=g
+      const information = await axios.get(
+        `${ingredientAPI}${results.data.response[0]}/information?apiKey=${apiKey}&amount=100&unit=g`
+      );
+      setInfo(information);
+      const fat = information.nutrition.nutrients.find(
+        ele => ele.title === "Fat"
+      );
+      setFat(fat.amount);
+      const calo = information.nutrition.nutrients.find(
+        ele => ele.title === "Calories"
+      );
+      setCal(calo.amount);
+      const carb = information.nutrition.nutrients.find(
+        ele => ele.title === "Carbohydrates"
+      );
+      setCarb(carb.amount);
+      // setData(results.re);
+    })();
+  }, []);
+  const handleQuery = title => setQuery(title);
   return (
     <>
       <Formik
         enableReinitialize={true}
         initialValues={{ title: "hello" }}
-        // validationSchema={CustomerEditSchema}
         onSubmit={values => {
           saveCustomer(values);
         }}
@@ -68,6 +104,49 @@ export function CustomerEditForm({
                       label="Title"
                     />
                   </div>
+
+                  <div className="col-lg-12">
+                    <label>Fat:</label>
+                    <input
+                      disabled
+                      value={fat}
+                      id="filled-disabled"
+                      defaultValue="fat value"
+                      // className={classes.textField}
+                    />
+                  </div>
+
+                  <div className="col-lg-8">
+                    <label>Carb:</label>
+
+                    <input
+                      disabled
+                      value={carb}
+                      id="filled-disabled"
+                      defaultValue="carb value"
+                      // className={classes.textField}
+                    />
+                  </div>
+
+                  <div className="col-lg-8">
+                    <label>Calories:</label>
+
+                    <input
+                      disabled
+                      value={calo}
+                      id="filled-disabled"
+                      defaultValue="carb value"
+                      // className={classes.textField}
+                    />
+                  </div>
+
+                  {/*<input*/}
+                  {/*  disabled*/}
+                  {/*  value{calo}*/}
+                  {/*  id="filled-disabled"*/}
+                  {/*  defaultValue="calories value"*/}
+                  {/*  // className={classes.textField}*/}
+                  {/*/>*/}
                   <div
                     className="image-input image-input-outline"
                     id="kt_image_1"
@@ -102,7 +181,9 @@ export function CustomerEditForm({
               <> </>
               <button
                 type="submit"
-                onClick={() => handleSubmit()}
+                onClick={() => {
+                  handleSubmit();
+                }}
                 className="btn btn-primary btn-elevate"
               >
                 Save

@@ -16,16 +16,15 @@ import {
   sortCaret,
   headerSortingClasses
 } from "../../../../../../_metronic/_helpers";
-import * as uiHelpers from "../CustomersUIHelpers";
+import * as uiHelpers from "../IngredientsUIHelpers";
 import * as columnFormatters from "./column-formatters";
 import { Pagination } from "../../../../../../_metronic/_partials/controls";
-import { useCustomersUIContext } from "../CustomersUIContext";
+import { useCustomersUIContext } from "../IngredientsUIContext";
 
-export function CustomersTable() {
-  // Customers UI Context
+export function IngredientsTable() {
+  // Ingredients UI Context
   const customersUIContext = useCustomersUIContext();
   const customersUIProps = useMemo(() => {
-    console.log("lll", customersUIContext);
     return {
       ids: customersUIContext.ids,
       setIds: customersUIContext.setIds,
@@ -43,7 +42,7 @@ export function CustomersTable() {
   );
   const { totalCount, entities, listLoading } = currentState;
 
-  // Customers Redux state
+  // Ingredients Redux state
   const dispatch = useDispatch();
   useEffect(() => {
     // clear selections list

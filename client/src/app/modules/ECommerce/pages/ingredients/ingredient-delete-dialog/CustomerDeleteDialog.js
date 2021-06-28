@@ -3,10 +3,10 @@ import { Modal } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { ModalProgressBar } from "../../../../../../_metronic/_partials/controls";
 import * as actions from "../../../_redux/customers/customersActions";
-import { useCustomersUIContext } from "../CustomersUIContext";
+import { useCustomersUIContext } from "../IngredientsUIContext";
 
 export function CustomerDeleteDialog({ id, show, onHide }) {
-  // Customers UI Context
+  // Ingredients UI Context
   const customersUIContext = useCustomersUIContext();
   const customersUIProps = useMemo(() => {
     return {
@@ -15,7 +15,7 @@ export function CustomerDeleteDialog({ id, show, onHide }) {
     };
   }, [customersUIContext]);
 
-  // Customers Redux state
+  // Ingredients Redux state
   const dispatch = useDispatch();
   const { isLoading } = useSelector(
     state => ({ isLoading: state.customers.actionsLoading }),
@@ -34,7 +34,7 @@ export function CustomerDeleteDialog({ id, show, onHide }) {
   useEffect(() => {}, [isLoading, dispatch]);
 
   const deleteCustomer = () => {
-    // server request for deleting customer by id
+    // server request for deleting ingredient by id
     dispatch(actions.deleteCustomer(id)).then(() => {
       // refresh list after deletion
       dispatch(actions.fetchCustomers(customersUIProps.queryParams));
@@ -56,14 +56,14 @@ export function CustomerDeleteDialog({ id, show, onHide }) {
       {/*end::Loading*/}
       <Modal.Header closeButton>
         <Modal.Title id="example-modal-sizes-title-lg">
-          Customer Delete
+          Ingredient Delete
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {!isLoading && (
-          <span>Are you sure to permanently delete this customer?</span>
+          <span>Are you sure to permanently delete this ingredient?</span>
         )}
-        {isLoading && <span>Customer is deleting...</span>}
+        {isLoading && <span>Ingredient is deleting...</span>}
       </Modal.Body>
       <Modal.Footer>
         <div>

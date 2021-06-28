@@ -64,7 +64,6 @@ function Login(props) {
 
     return "";
   };
-  console.log("kkkk", initialValues);
   const formik = useFormik({
     initialValues,
     validationSchema: LoginSchema,

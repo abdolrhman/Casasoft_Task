@@ -5,12 +5,12 @@ import {
   CardHeader,
   CardHeaderToolbar
 } from "../../../../../_metronic/_partials/controls";
-import { CustomersFilter } from "./customers-filter/CustomersFilter";
-import { CustomersTable } from "./customers-table/CustomersTable";
-import { CustomersGrouping } from "./customers-grouping/CustomersGrouping";
-import { useCustomersUIContext } from "./CustomersUIContext";
+import { CustomersFilter } from "./ingredients-filter/CustomersFilter";
+import { IngredientsTable } from "./ingredients-table/IngredientsTable";
+import { CustomersGrouping } from "./ingredients-grouping/CustomersGrouping";
+import { useCustomersUIContext } from "./IngredientsUIContext";
 
-export function CustomersCard() {
+export function IngredientsCard() {
   const customersUIContext = useCustomersUIContext();
   const customersUIProps = useMemo(() => {
     return {
@@ -35,7 +35,7 @@ export function CustomersCard() {
       <CardBody>
         <CustomersFilter />
         {customersUIProps.ids.length > 0 && <CustomersGrouping />}
-        <CustomersTable />
+        <IngredientsTable />
       </CardBody>
     </Card>
   );

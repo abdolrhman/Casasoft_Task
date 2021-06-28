@@ -1,8 +1,8 @@
 import React, { useMemo } from "react";
-import { useCustomersUIContext } from "../CustomersUIContext";
+import { useCustomersUIContext } from "../IngredientsUIContext";
 
 export function CustomersGrouping() {
-  // Customers UI Context
+  // Ingredients UI Context
   const customersUIContext = useCustomersUIContext();
   const customersUIProps = useMemo(() => {
     return {
@@ -11,7 +11,7 @@ export function CustomersGrouping() {
       openDeleteCustomersDialog: customersUIContext.openDeleteCustomersDialog,
       openFetchCustomersDialog: customersUIContext.openFetchCustomersDialog,
       openUpdateCustomersStatusDialog:
-        customersUIContext.openUpdateCustomersStatusDialog,
+        customersUIContext.openUpdateCustomersStatusDialog
     };
   }, [customersUIContext]);
 

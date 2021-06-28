@@ -4,11 +4,10 @@ import React from "react";
 import {
   CustomerTypeCssClasses,
   CustomerTypeTitles
-} from "../../CustomersUIHelpers";
+} from "../../IngredientsUIHelpers";
 import { Avatar, Grid } from "@material-ui/core";
 
 export function TypeColumnFormatter(cellContent, row) {
-  console.log("rr", row.image);
   return (
     <>
       <Grid container justify="center" alignItems="center">

@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialCustomersState = {
   listLoading: false,
@@ -51,15 +51,15 @@ export const customersSlice = createSlice({
     customerCreated: (state, action) => {
       state.ewactionsLoading = false;
       state.error = null;
-      state.entities.push(action.payload.customer);
+      state.entities.push(action.payload.ingredient);
     },
     // updateCustomer
     customerUpdated: (state, action) => {
       state.error = null;
       state.actionsLoading = false;
       state.entities = state.entities.map(entity => {
-        if (entity.id === action.payload.customer.id) {
-          return action.payload.customer;
+        if (entity.id === action.payload.ingredient.id) {
+          return action.payload.ingredient;
         }
         return entity;
       });

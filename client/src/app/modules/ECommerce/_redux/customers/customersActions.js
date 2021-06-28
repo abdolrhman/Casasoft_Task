@@ -26,11 +26,11 @@ export const fetchCustomer = id => dispatch => {
   return requestFromServer
     .getCustomerById(id)
     .then(response => {
-      const customer = response.data;
-      dispatch(actions.customerFetched({ customerForEdit: customer }));
+      const ingredient = response.data;
+      dispatch(actions.customerFetched({ customerForEdit: ingredient }));
     })
     .catch(error => {
-      error.clientMessage = "Can't find customer";
+      error.clientMessage = "Can't find ingredient";
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
@@ -43,7 +43,7 @@ export const deleteCustomer = id => dispatch => {
       dispatch(actions.customerDeleted({ id }));
     })
     .catch(error => {
-      error.clientMessage = "Can't delete customer";
+      error.clientMessage = "Can't delete ingredient";
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
@@ -53,24 +53,24 @@ export const createCustomer = customerForCreation => dispatch => {
   return requestFromServer
     .createCustomer(customerForCreation)
     .then(response => {
-      const { customer } = response.data;
-      dispatch(actions.customerCreated({ customer }));
+      const { ingredient } = response.data;
+      dispatch(actions.customerCreated({ ingredient }));
     })
     .catch(error => {
-      error.clientMessage = "Can't create customer";
+      error.clientMessage = "Can't create ingredient";
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
 
-export const updateCustomer = customer => dispatch => {
+export const updateCustomer = ingredient => dispatch => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .updateCustomer(customer)
+    .updateCustomer(ingredient)
     .then(() => {
-      dispatch(actions.customerUpdated({ customer }));
+      dispatch(actions.customerUpdated({ ingredient }));
     })
     .catch(error => {
-      error.clientMessage = "Can't update customer";
+      error.clientMessage = "Can't update ingredient";
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };

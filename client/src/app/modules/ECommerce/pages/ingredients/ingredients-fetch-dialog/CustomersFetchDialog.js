@@ -4,25 +4,23 @@ import { shallowEqual, useSelector } from "react-redux";
 import {
   CustomerStatusCssClasses,
   CustomerStatusTitles
-} from "../CustomersUIHelpers";
-import { useCustomersUIContext } from "../CustomersUIContext";
+} from "../IngredientsUIHelpers";
+import { useCustomersUIContext } from "../IngredientsUIContext";
 
 const selectedCustomers = (entities, ids) => {
-  console.log("eeewww", entities, ids);
-  console.log("qqqq", ids);
   const _customers = [];
   ids.forEach(id => {
-    const customer = entities.find(el => el._id === id);
-    console.log("cuu", customer);
-    if (customer) {
-      _customers.push(customer);
+    const ingredient = entities.find(el => el._id === id);
+    console.log("cuu", ingredient);
+    if (ingredient) {
+      _customers.push(ingredient);
     }
   });
   return _customers;
 };
 
 export function CustomersFetchDialog({ show, onHide }) {
-  // Customers UI Context
+  // Ingredients UI Context
   const customersUIContext = useCustomersUIContext();
   const customersUIProps = useMemo(() => {
     return {
@@ -30,7 +28,7 @@ export function CustomersFetchDialog({ show, onHide }) {
     };
   }, [customersUIContext]);
 
-  // Customers Redux state
+  // Ingredients Redux state
   const { customers } = useSelector(
     state => ({
       customers: selectedCustomers(
@@ -40,7 +38,6 @@ export function CustomersFetchDialog({ show, onHide }) {
     }),
     shallowEqual
   );
-  console.log("customerss", customers);
   // if customers weren't selected we should close modal
   useEffect(() => {
     if (!customersUIProps.ids || customersUIProps.ids.length === 0) {
@@ -70,23 +67,22 @@ export function CustomersFetchDialog({ show, onHide }) {
             </tr>
           </thead>
           <tbody>
-            {customers.map(customer => (
-              <tr key={`id${customer.id}`}>
-                <td>{customer.id}</td>
-                <td>{console.log("cu", customer)}</td>
+            {customers.map(ingredient => (
+              <tr key={`id${ingredient.id}`}>
+                <td>{ingredient.id}</td>
                 <td>
                   <span
                     className={`label label-lg label-light-${
-                      CustomerStatusCssClasses[customer.status]
+                      CustomerStatusCssClasses[ingredient.status]
                     } label-inline`}
                   >
                     {" "}
-                    {CustomerStatusTitles[customer.status]}
+                    {CustomerStatusTitles[ingredient.status]}
                   </span>
                 </td>
                 <td>
                   <span className="ml-3">
-                    {customer.lastName}, {customer.firstName}
+                    {ingredient.lastName}, {ingredient.firstName}
                   </span>
                 </td>
               </tr>

@@ -3,41 +3,41 @@ import { Modal } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import {
   CustomerStatusCssClasses,
-  CustomerStatusTitles,
-} from "../CustomersUIHelpers";
+  CustomerStatusTitles
+} from "../IngredientsUIHelpers";
 import * as actions from "../../../_redux/customers/customersActions";
-import { useCustomersUIContext } from "../CustomersUIContext";
+import { useCustomersUIContext } from "../IngredientsUIContext";
 
 const selectedCustomers = (entities, ids) => {
   const _customers = [];
-  ids.forEach((id) => {
-    const customer = entities.find((el) => el.id === id);
-    if (customer) {
-      _customers.push(customer);
+  ids.forEach(id => {
+    const ingredient = entities.find(el => el.id === id);
+    if (ingredient) {
+      _customers.push(ingredient);
     }
   });
   return _customers;
 };
 
 export function CustomersUpdateStateDialog({ show, onHide }) {
-  // Customers UI Context
+  // Ingredients UI Context
   const customersUIContext = useCustomersUIContext();
   const customersUIProps = useMemo(() => {
     return {
       ids: customersUIContext.ids,
       setIds: customersUIContext.setIds,
-      queryParams: customersUIContext.queryParams,
+      queryParams: customersUIContext.queryParams
     };
   }, [customersUIContext]);
 
-  // Customers Redux state
+  // Ingredients Redux state
   const { customers, isLoading } = useSelector(
-    (state) => ({
+    state => ({
       customers: selectedCustomers(
         state.customers.entities,
         customersUIProps.ids
       ),
-      isLoading: state.customers.actionsLoading,
+      isLoading: state.customers.actionsLoading
     }),
     shallowEqual
   );
@@ -98,22 +98,22 @@ export function CustomersUpdateStateDialog({ show, onHide }) {
             </tr>
           </thead>
           <tbody>
-            {customers.map((customer) => (
-              <tr key={`id${customer.id}`}>
-                <td>{customer.id}</td>
+            {customers.map(ingredient => (
+              <tr key={`id${ingredient.id}`}>
+                <td>{ingredient.id}</td>
                 <td>
                   <span
                     className={`label label-lg label-light-${
-                      CustomerStatusCssClasses[customer.status]
+                      CustomerStatusCssClasses[ingredient.status]
                     } label-inline`}
                   >
                     {" "}
-                    {CustomerStatusTitles[customer.status]}
+                    {CustomerStatusTitles[ingredient.status]}
                   </span>
                 </td>
                 <td>
                   <span className="ml-3">
-                    {customer.lastName}, {customer.firstName}
+                    {ingredient.lastName}, {ingredient.firstName}
                   </span>
                 </td>
               </tr>
@@ -126,7 +126,7 @@ export function CustomersUpdateStateDialog({ show, onHide }) {
           <select
             className="form-control"
             value={status}
-            onChange={(e) => setStatus(+e.target.value)}
+            onChange={e => setStatus(+e.target.value)}
           >
             <option value="0">Suspended</option>
             <option value="1">Active</option>

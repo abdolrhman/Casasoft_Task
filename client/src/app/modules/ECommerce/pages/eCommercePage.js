@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import { Redirect, Switch } from "react-router-dom";
-import { CustomersPage } from "./customers/CustomersPage";
+import { IngredientsPage } from "./ingredients/IngredientsPage";
 import { ProductsPage } from "./products/ProductsPage";
 import { ProductEdit } from "./products/product-edit/ProductEdit";
 import { LayoutSplashScreen, ContentRoute } from "../../../../_metronic/layout";
@@ -14,10 +14,13 @@ export default function eCommercePage() {
           <Redirect
             exact={true}
             from="/e-commerce"
-            to="/e-commerce/customers"
+            to="/e-commerce/ingredients"
           />
         }
-        <ContentRoute path="/e-commerce/customers" component={CustomersPage} />
+        <ContentRoute
+          path="/e-commerce/ingredients"
+          component={IngredientsPage}
+        />
         <ContentRoute path="/e-commerce/products/new" component={ProductEdit} />
         <ContentRoute
           path="/e-commerce/products/:id/edit"

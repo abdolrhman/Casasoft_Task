@@ -1566,10 +1566,13 @@ export function HeaderMenu({ layoutProps }) {
                     {/*begin::3 Level*/}
                     <li
                       className={`menu-item ${getMenuItemActive(
-                        "/e-commerce/customers"
+                        "/e-commerce/ingredients"
                       )}`}
                     >
-                      <NavLink className="menu-link" to="/e-commerce/customers">
+                      <NavLink
+                        className="menu-link"
+                        to="/e-commerce/ingredients"
+                      >
                         <i className="menu-bullet menu-bullet-dot">
                           <span />
                         </i>

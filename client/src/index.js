@@ -32,7 +32,7 @@ import { MetronicI18nProvider } from "./_metronic/i18n";
  * @see https://facebook.github.io/create-react-app/docs/using-the-public-folder
  */
 const { PUBLIC_URL, API_URL } = process.env;
-console.log("kkk", process.env);
+
 /**
  * Creates `axios-mock-adapter` instance for provided `axios` instance, add
  * basic Metronic mocks and returns it.

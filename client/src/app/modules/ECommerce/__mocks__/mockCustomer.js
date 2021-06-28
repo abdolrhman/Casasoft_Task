@@ -3,7 +3,7 @@ import MockUtils from "./mock.utils";
 
 export default function mockCustomer(mock) {
   mock.onPost("api/customers").reply(({ data }) => {
-    const { customer } = JSON.parse(data);
+    const { ingredient } = JSON.parse(data);
     const {
       firstName = "",
       lastName = "",
@@ -14,7 +14,7 @@ export default function mockCustomer(mock) {
       dateOfBbirth = "01/01/2019",
       ipAddress = "127.0.0.1",
       type = 1
-    } = customer;
+    } = ingredient;
 
     const id = generateUserId();
     const newCustomer = {
@@ -30,7 +30,7 @@ export default function mockCustomer(mock) {
       type
     };
     customerTableMock.push(newCustomer);
-    return [200, { customer: newCustomer }];
+    return [200, { ingredient: newCustomer }];
   });
 
   mock.onPost("api/customers/find").reply(config => {
@@ -66,23 +66,23 @@ export default function mockCustomer(mock) {
 
   mock.onGet(/api\/customers\/\d+/).reply(config => {
     const id = config.url.match(/api\/customers\/(\d+)/)[1];
-    const customer = customerTableMock.find(el => el.id === +id);
-    if (!customer) {
+    const ingredient = customerTableMock.find(el => el.id === +id);
+    if (!ingredient) {
       return [400];
     }
 
-    return [200, customer];
+    return [200, ingredient];
   });
 
   mock.onPut(/api\/customers\/\d+/).reply(config => {
     const id = config.url.match(/api\/customers\/(\d+)/)[1];
-    const { customer } = JSON.parse(config.data);
+    const { ingredient } = JSON.parse(config.data);
     const index = customerTableMock.findIndex(el => el.id === +id);
     if (!index) {
       return [400];
     }
 
-    customerTableMock[index] = { ...customer };
+    customerTableMock[index] = { ...ingredient };
     return [200];
   });
 

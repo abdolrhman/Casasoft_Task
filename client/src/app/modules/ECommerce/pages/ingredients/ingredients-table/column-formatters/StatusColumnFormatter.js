@@ -3,8 +3,8 @@
 import React from "react";
 import {
   CustomerStatusCssClasses,
-  CustomerStatusTitles,
-} from "../../CustomersUIHelpers";
+  CustomerStatusTitles
+} from "../../IngredientsUIHelpers";
 
 export function StatusColumnFormatter(cellContent, row) {
   const getLabelCssClasses = () => {

@@ -1,16 +1,16 @@
-import React, {createContext, useContext, useState, useCallback} from "react";
-import {isEqual, isFunction} from "lodash";
-import {initialFilter} from "./CustomersUIHelpers";
+import React, { createContext, useContext, useState, useCallback } from "react";
+import { isEqual, isFunction } from "lodash";
+import { initialFilter } from "./IngredientsUIHelpers";
 
-const CustomersUIContext = createContext();
+const IngredientsUIContext = createContext();
 
 export function useCustomersUIContext() {
-  return useContext(CustomersUIContext);
+  return useContext(IngredientsUIContext);
 }
 
-export const CustomersUIConsumer = CustomersUIContext.Consumer;
+export const CustomersUIConsumer = IngredientsUIContext.Consumer;
 
-export function CustomersUIProvider({customersUIEvents, children}) {
+export function CustomersUIProvider({ customersUIEvents, children }) {
   const [queryParams, setQueryParamsBase] = useState(initialFilter);
   const [ids, setIds] = useState([]);
   const setQueryParams = useCallback(nextQueryParams => {
@@ -52,8 +52,13 @@ export function CustomersUIProvider({customersUIEvents, children}) {
     openDeleteCustomerDialog: customersUIEvents.openDeleteCustomerDialog,
     openDeleteCustomersDialog: customersUIEvents.openDeleteCustomersDialog,
     openFetchCustomersDialog: customersUIEvents.openFetchCustomersDialog,
-    openUpdateCustomersStatusDialog: customersUIEvents.openUpdateCustomersStatusDialog
+    openUpdateCustomersStatusDialog:
+      customersUIEvents.openUpdateCustomersStatusDialog
   };
 
-  return <CustomersUIContext.Provider value={value}>{children}</CustomersUIContext.Provider>;
+  return (
+    <IngredientsUIContext.Provider value={value}>
+      {children}
+    </IngredientsUIContext.Provider>
+  );
 }

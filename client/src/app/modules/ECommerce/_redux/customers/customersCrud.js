@@ -2,16 +2,16 @@ import axios from "axios";
 
 export const CUSTOMERS_URL = "http://localhost:4000/api/ingredient";
 
-// CREATE =>  POST: add a new customer to the server
-export async function createCustomer(customer) {
-  customer.image = customer.image.name;
+// CREATE =>  POST: add a new ingredient to the server
+export async function createCustomer(ingredient) {
+  ingredient.image = ingredient.image.name;
   let formData = new FormData();
-  formData.append("image", customer.image);
+  formData.append("image", ingredient.image);
 
   return axios({
     method: "post",
     url: CUSTOMERS_URL,
-    data: customer,
+    data: ingredient,
     headers: { "Content-Type": "multipart/form-data" }
   });
 }
@@ -31,9 +31,9 @@ export async function findCustomers(queryParams) {
   return axios.get(`${CUSTOMERS_URL}`);
 }
 
-// UPDATE => PUT: update the customer on the server
-export function updateCustomer(customer) {
-  return axios.put(`${CUSTOMERS_URL}/${customer.id}`, { customer });
+// UPDATE => PUT: update the ingredient on the server
+export function updateCustomer(ingredient) {
+  return axios.put(`${CUSTOMERS_URL}/${ingredient.id}`, { ingredient });
 }
 
 // UPDATE Status
@@ -44,12 +44,12 @@ export function updateStatusForCustomers(ids, status) {
   });
 }
 
-// DELETE => delete the customer from the server
+// DELETE => delete the ingredient from the server
 export function deleteCustomer(customerId) {
   return axios.delete(`${CUSTOMERS_URL}/${customerId}`);
 }
 
-// DELETE Customers by ids
+// DELETE Ingredients by ids
 export function deleteCustomers(ids) {
   return axios.post(`${CUSTOMERS_URL}/deleteCustomers`, { ids });
 }

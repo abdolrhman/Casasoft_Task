@@ -1,102 +1,102 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import { CustomersLoadingDialog } from "./customers-loading-dialog/CustomersLoadingDialog";
-import { CustomerEditDialog } from "./customer-edit-dialog/CustomerEditDialog";
-import { CustomerDeleteDialog } from "./customer-delete-dialog/CustomerDeleteDialog";
+import { CustomersLoadingDialog } from "./ingredients-loading-dialog/CustomersLoadingDialog";
+import { IngredientEditDialog } from "./ingredient-edit-dialog/IngredientEditDialog";
+import { CustomerDeleteDialog } from "./ingredient-delete-dialog/CustomerDeleteDialog";
 import { CustomersDeleteDialog } from "./customers-delete-dialog/CustomersDeleteDialog";
-import { CustomersFetchDialog } from "./customers-fetch-dialog/CustomersFetchDialog";
-import { CustomersUpdateStateDialog } from "./customers-update-status-dialog/CustomersUpdateStateDialog";
-import { CustomersUIProvider } from "./CustomersUIContext";
-import { CustomersCard } from "./CustomersCard";
+import { CustomersFetchDialog } from "./ingredients-fetch-dialog/CustomersFetchDialog";
+import { CustomersUpdateStateDialog } from "./ingredients-update-status-dialog/CustomersUpdateStateDialog";
+import { CustomersUIProvider } from "./IngredientsUIContext";
+import { IngredientsCard } from "./IngredientsCard";
 
-export function CustomersPage({ history }) {
+export function IngredientsPage({ history }) {
   const customersUIEvents = {
     newCustomerButtonClick: () => {
-      history.push("/e-commerce/customers/new");
+      history.push("/e-commerce/ingredients/new");
     },
     openEditCustomerDialog: id => {
-      history.push(`/e-commerce/customers/${id}/edit`);
+      history.push(`/e-commerce/ingredients/${id}/edit`);
     },
     openDeleteCustomerDialog: id => {
-      history.push(`/e-commerce/customers/${id}/delete`);
+      history.push(`/e-commerce/ingredients/${id}/delete`);
     },
     openDeleteCustomersDialog: () => {
-      history.push(`/e-commerce/customers/deleteCustomers`);
+      history.push(`/e-commerce/ingredients/deleteCustomers`);
     },
     openFetchCustomersDialog: () => {
-      history.push(`/e-commerce/customers/fetch`);
+      history.push(`/e-commerce/ingredients/fetch`);
     },
     openUpdateCustomersStatusDialog: () => {
-      history.push("/e-commerce/customers/updateStatus");
+      history.push("/e-commerce/ingredients/updateStatus");
     }
   };
 
   return (
     <CustomersUIProvider customersUIEvents={customersUIEvents}>
       <CustomersLoadingDialog />
-      <Route path="/e-commerce/customers/new">
+      <Route path="/e-commerce/ingredients/new">
         {({ history, match }) => (
-          <CustomerEditDialog
+          <IngredientEditDialog
             show={match != null}
             onHide={() => {
-              history.push("/e-commerce/customers");
+              history.push("/e-commerce/ingredients");
             }}
           />
         )}
       </Route>
-      <Route path="/e-commerce/customers/:id/edit">
+      <Route path="/e-commerce/ingredients/:id/edit">
         {({ history, match }) => (
-          <CustomerEditDialog
+          <IngredientEditDialog
             show={match != null}
             id={match && match.params.id}
             onHide={() => {
-              history.push("/e-commerce/customers");
+              history.push("/e-commerce/ingredients");
             }}
           />
         )}
       </Route>
-      <Route path="/e-commerce/customers/deleteCustomers">
+      <Route path="/e-commerce/ingredients/deleteCustomers">
         {({ history, match }) => (
           <CustomersDeleteDialog
             show={match != null}
             onHide={() => {
-              history.push("/e-commerce/customers");
+              history.push("/e-commerce/ingredients");
             }}
           />
         )}
       </Route>
-      <Route path="/e-commerce/customers/:id/delete">
+      <Route path="/e-commerce/ingredients/:id/delete">
         {({ history, match }) => (
           <CustomerDeleteDialog
             show={match != null}
             id={match && match.params.id}
             onHide={() => {
-              history.push("/e-commerce/customers");
+              history.push("/e-commerce/ingredients");
             }}
           />
         )}
       </Route>
-      <Route path="/e-commerce/customers/fetch">
+      <Route path="/e-commerce/ingredients/fetch">
         {({ history, match }) => (
           <CustomersFetchDialog
             show={match != null}
             onHide={() => {
-              history.push("/e-commerce/customers");
+              history.push("/e-commerce/ingredients");
             }}
           />
         )}
       </Route>
-      <Route path="/e-commerce/customers/updateStatus">
+      <Route path="/e-commerce/ingredients/updateStatus">
         {({ history, match }) => (
           <CustomersUpdateStateDialog
             show={match != null}
             onHide={() => {
-              history.push("/e-commerce/customers");
+              history.push("/e-commerce/ingredients");
             }}
           />
         )}
       </Route>
-      <CustomersCard />
+      <IngredientsCard />
     </CustomersUIProvider>
   );
 }
