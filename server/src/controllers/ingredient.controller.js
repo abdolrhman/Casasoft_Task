@@ -27,3 +27,14 @@ exports.list = async (req, res, next) => {
     return next(error);
   }
 };
+
+exports.delete = async (req, res, next) => {
+  try {
+    const ingredientId = req.params.id;
+    const ingredients = await Ingredient.deleteOne({ _id: ingredientId });
+
+    res.send({ entities: ingredients });
+  } catch (error) {
+    return next(error);
+  }
+};

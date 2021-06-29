@@ -11,6 +11,15 @@ const ingredientSchema = new Schema(
     },
     image: {
       type: String
+    },
+    fat: {
+      type: String
+    },
+    cal: {
+      type: String
+    },
+    carb: {
+      type: String
     }
   },
   {
